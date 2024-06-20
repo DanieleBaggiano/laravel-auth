@@ -34,9 +34,11 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
+            'slug' => 'required|unique:projects,slug',
         ]);
 
-        $slug = Str::slug($request->title);
+        $slug = Str::slug($request->slug);
+
         $originalSlug = $slug;
         $counter = 1;
         while (Project::where('slug', $slug)->exists()) {
@@ -78,18 +80,19 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
+            'slug' => 'required|unique:projects,slug,' . $id,
         ]);
 
         $project = Project::findOrFail($id);
         $project->update([
             'title' => $request->title,
             'description' => $request->description,
+            'slug' => $request->slug,
         ]);
 
         return redirect()->route('admin.projects.index')
             ->with('success', 'Project updated successfully.');
     }
-
     /**
      * Remove the specified resource from storage.
      */

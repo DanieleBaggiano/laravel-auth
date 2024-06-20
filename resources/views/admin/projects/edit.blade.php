@@ -14,6 +14,11 @@
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="description" required>{{ $project->description }}</textarea>
             </div>
+            <div class="mb-3">
+                <label for="slug" class="form-label">Slug</label>
+                <input type="text" class="form-control" id="slug" name="slug" value="{{ $project->slug }}"
+                    required>
+            </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
